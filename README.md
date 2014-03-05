@@ -6,6 +6,24 @@ Atom，属于 21 世纪的代码编辑器。
 **译者**：[@郭宇](http://weibo.com/turingou)
 **译自**：[Atom.io](http://atom.io)
 
+### 目录
+
+Atom 基础入门：
+- [快速指引](./guides/getting-started.md)
+- [编辑器配置](./guides/customizing-atom.md)
+- [编写插件](./guides/creating-a-package.md)
+- [主题设计](./guides/creating-a-theme.md)
+- [发布插件](./guides/publishing-a-package.md)
+- [转换 TextMate 插件](./guides/converting-a-text-mate-bundle.md)
+- [转换 TextMate 主题](./guides/converting-a-text-mate-theme.md)
+- [贡献代码](./guides/contributing.md)
+
+Atom 进阶指引：
+- [配置文件](./guides/advanced/configuration.md)
+- [快捷键映射](./guides/advanced/keymaps.md)
+- [初始序列化](./guides/advanced/serialization.md)
+- [视图系统](./guides/advanced/view-system.md)
+
 ### 前言
 
 在 Github，我们一直在构建一款理想的代码编辑器，这款编辑器无所不能，无微不至，既可以随心所欲的定制，又可以信手拈来，开箱即用。
@@ -31,17 +49,17 @@ Atom 由 50 多个开源模块组成，这些模块围绕着 Atom 编辑器的�
 
 没人希望浪费宝贵的时间配置编辑器，Atom 真正做到了开箱即用，包含所有现代代码编辑器的好用功能：
 
-1.文件浏览器
-2.快速文件查找工具
-3.快速字符查找和替换工具
-4.多光标、多选择支持
-5.多 Tab 支持
-6.代码片段提示支持
-7.代码缩进支持
-8.简洁好用的 UI
-9.支持导入 TextMate 主题与插件
+1. 文件浏览器  
+2. 快速文件查找工具  
+3. 快速字符查找和替换工具  
+4. 多光标、多选择支持  
+5. 多 Tab 支持  
+6. 代码片段提示支持  
+7. 代码缩进支持  
+8. 简洁好用的 UI  
+9. 支持导入 TextMate 主题与插件  
 
 ### 加入 Atom 社区
-- Github：[@atom](https://github.com/atom)
+- Github: [@atom](https://github.com/atom)
 - Twitter: [@AtomEditor](http://twitter.com/atomeditor)
 - 讨论区: [http://discuss.atom.io](http://discuss.atom.io)
