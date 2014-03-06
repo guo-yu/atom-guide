@@ -70,10 +70,20 @@ To enable a Dev Mode window:
 
 If you'd like to reload all the styles at any time, you can use the shortcut cmd-ctrl-shift-r.
 
-#### Developer Tools
+#### 开发者工具
 
 Atom is based on the Chrome browser, and supports Chrome's Developer Tools. You can open them by selecting the View > Toggle Developer Tools menu, or by using the cmd-alt-i shortcut.
 
 The dev tools allow you to inspect elements and take a look at their CSS properties.
 
 ![](https://f.cloud.github.com/assets/69169/1347391/2d51f91c-36af-11e3-806f-f7b334af43e9.png)
+
+Check out Google's extensive tutorial for a short introduction.
+
+#### 设计风格指导
+
+If you are creating an interface theme, you'll want a way to see how your theme changes affect all the components in the system. The styleguide is a page that renders every component Atom supports.
+
+To open the styleguide, open the command palette (cmd-shift-P) and search for styleguide, or use the shortcut cmd-ctrl-shift-g.
+
+![](https://f.cloud.github.com/assets/69169/1347390/2d431d98-36af-11e3-8f8e-3f4ce1e67adb.png)
