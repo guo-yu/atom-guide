@@ -1,9 +1,9 @@
 编写插件
 ---
 
-Packages are at the core of Atom. Nearly everything outside of the main editor is handled by a package. That includes "core" pieces like the file tree, status bar, syntax highlighting, and more.
+插件系统是 Atom 的核心组成部分，几乎所有不属于编辑器内核的功能，在 Atom 中，我们都使用插件的方式来进行组织。这些我们默认提供的插件，包括文件树，状态栏，语法高亮等等模块。
 
-A package can contain a variety of different resource types to change Atom's behavior. The basic package layout is as follows:
+插件可以包括很多种改变编辑器行为的资源，一个基本的插件结构应如下所示：
 
 ```
 my-package/
@@ -17,42 +17,44 @@ my-package/
   index.coffee
   package.json
 ```
-Not every package will have (or need) all of these directories.
 
-We have a tutorial on creating your first package.
+当然，并不是所有的插件都包括（或者需要）这些目录和文件。
 
-There are also guides for converting TextMate bundles and TextMate themes so they work in Atom.
+Atom 提供了一个 [简单的教程](#) 引导你创建自己的第一个插件。
+
+这里也有一些其他的教程关于如何转换 TextMate 插件和主题到 Atom 平台。
 
 ### package.json
 
-Similar to npm packages, Atom packages contain a package.json file in their top-level directory. This file contains metadata about the package, such as the path to its "main" module, library dependencies, and manifests specifying the order in which its resources should be loaded.
+和 npm 模块相似， Atom 插件在根目录也包括一个主描述文件 `package.json`。这个文件定义了插件的元数据，比如主文件路径，模块依赖，或者插件中资源文件的加载顺序等等。
 
-In addition to the regular npm package.json keys available, Atom package.json files have their own additions.
+除了 npm 模块描述中定义的配置项之外，Atom 还提供这些配置项：
 
-- main (Required): the path to the CoffeeScript file that's the entry point to your package
-- stylesheets (Optional): an Array of Strings identifying the order of the stylesheets your package needs to load. If not specified, stylesheets in the stylesheets directory are added alphabetically.
-- keymaps(Optional): an Array of Strings identifying the order of the key mappings your package needs to load. If not specified, mappings in the keymaps directory are added alphabetically.
-- menus(Optional): an Array of Strings identifying the order of the menu mappings your package needs to load. If not specified, mappings in the menus directory are added alphabetically.
-- snippets (Optional): an Array of Strings identifying the order of the snippets your package needs to load. If not specified, snippets in the snippets directory are added alphabetically.
-- activationEvents (Optional): an Array of Strings identifying events that trigger your package's activation. You can delay the loading of your package until one of these events is triggered.
+- main (必要): 插件的入口文件，即对外暴露接口的文件
+- stylesheets (可选): 一个定义了样式表先后加载顺序的文件数组，如果没有填写这个配置项，Atom 会默认加载 stylesheets 文件夹中的样式表，并按照字母表排序。
+- keymaps(可选): 一个定义了快捷键映射先后加载顺序的文件数组，如果没有填写这个配置项，Atom 会默认加载 keymaps 文件夹中的快捷键映射，并按照字母表排序。
+- menus(可选): 一个定义了菜单映射先后加载顺序的文件数组，如果没有填写这个配置项，Atom 会默认加载 menus 文件夹中的菜单映射，并按照字母表排序。
+- snippets (可选): 一个定义了代码片段先后加载顺序的文件数组，如果没有填写这个配置项，Atom 会默认加载 snippets 文件夹中的代码片段，并按照字母表排序。
+- activationEvents (可选): 一个激活插件的事件数组。你可以在这里定义何时你的插件被激活或者触发。
 
 ### 插件源码
 
-If you want to extend Atom's behavior, your package should contain a single top-level module, which you export from index.coffee (or whichever file is indicated by the main key in your package.json file). The remainder of your code should be placed in the lib directory, and required from your top-level file.
+如果你想定义 Atom 的行为，插件的主入口文件必须包括并暴露一个顶级模块。注意，插件的主入口文件可能是 index.coffee，也可以是在 package.json 中定义的 main 文件，我们建议把插件的源码放置在插件的 lib 目录，并在主入口文件引用。
 
-Your package's top-level module is a singleton object that manages the lifecycle of your extensions to Atom. Even if your package creates ten different views and appends them to different parts of the DOM, it's all managed from your top-level object.
+插件的顶级模块是一个单体对象 (singleton object)，这个对象管理插件的生命周期，也就是说，甚至你的插件生成了十个不同的视图，并将他们 append 到 DOM 的不用部分，这些试图也是由这个对象进行管理。
 
-Your package's top-level module should implement the following methods:
+这个对象必须包括这些方法：
 
-- activate(state): This required method is called when your package is activated. It is passed the state data from the last time the window was serialized if your module implements the serialize() method. Use this to do initialization work when your package is started (like setting up DOM elements or binding events).
+- activate(state): 这个必要的方法会在插件激活时被触发。Atom 会将上次编辑器初始化并执行 serialize() 后的状态传入这个函数。这个函数适合进行某些初始化操作，比如初始化 DOM 元素或者绑定插件中的事件。
 
-- serialize(): This optional method is called when the window is shutting down, allowing you to return JSON to represent the state of your component. When the window is later restored, the data you returned is passed to your module's activate method so you can restore your view to where the user left off.
+- serialize(): 这个可选的方法在编辑器关闭时被执行，如果它返回一个 JSON 表述此时模块的状态，在编辑器下次打开时，这些数据会被传入该插件的 activate 函数中，使得插件重新返回当时的状态或视图变得可能。
 
-- deactivate(): This optional method is called when the window is shutting down. If your package is watching any files or holding external resources in any other way, release them here. If you're just subscribing to things on window, you don't need to worry because that's getting torn down anyway.
+- deactivate(): 这个可选的方法在编辑器窗口关闭时被执行。如果你的插件在处理某些外部资源或者监听文件的变动，应当在此时销毁这些函数或者监视器。
+如果只是对当前编辑床可起作用，则无需进行处理，Atom 将自动回收
 
 ### 范例插件
 
-Your directory would look like this:
+范例插件的文件结构可能如下所示：
 
 ```
 my-package/
@@ -61,12 +63,12 @@ my-package/
   lib/
     my-package.coffee
 ```
-index.coffee might be:
+index.coffee 可能像这样：
 
 ```
 module.exports = require "./lib/my-package"
 ```
-my-package/my-package.coffee might start:
+my-package/my-package.coffee 可能是这样：
 
 ```
 module.exports =
@@ -74,7 +76,8 @@ module.exports =
   deactivate: -> # ...
   serialize: -> # ...
 ```
-Beyond this simple contract, your package has access to Atom's API. Be aware that since we are early in development, APIs are subject to change and we have not yet established clear boundaries between what is public and what is private. Also, please collaborate with us if you need an API that doesn't exist. Our goal is to build out Atom's API organically based on the needs of package authors like you.
+
+除了插件的基本结构，插件代码都有使用 Atom API 的权限，开发者需要注意，Atom 的 API 还在早期开发阶段，这意味着 API 可能有计划中的更新，比如区分公共 API 和 私有 API 等等。如果你需要一个现在暂时没有的 API 用于开发，欢迎给 Atom 贡献代码。我们的目标是建立一套开发者真正需要的 API 的体系。
 
 ### 插件样式表
 
