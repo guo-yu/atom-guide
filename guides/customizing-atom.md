@@ -65,10 +65,8 @@ Atom 的主配置文件在 `~/.atom/config.cson`，CSON 是一种 CoffeeScript-s
 'editor':
   'fontSize': 18
 ```
-
-The configuration itself is grouped by the package name or one of the two core namespaces: core and editor.
-
-你也可以在顶部菜单中找到 Atom > Open Your Config 打开配置文件。
+配置文件由包名称进行分组，当然，也包括两个缺省的类别，那就是 核心配置(core) 和 编辑器(editor) 配置。
+也可以在顶部菜单中找到 Atom > Open Your Config 打开配置文件。
 
 ### 配置项清单
 
@@ -82,24 +80,25 @@ The configuration itself is grouped by the package name or one of the two core n
 
 #### init.coffee
 
-When Atom finishes loading, it will evaluate init.coffee in your ~/.atom directory, giving you a chance to run arbitrary personal CoffeeScript code to make customizations. You have full access to Atom's API from code in this file. If customizations become extensive, consider creating a package.
+当 Atom 本身加载完毕时，它会首先运行 `~/.atom/init.coffee` 文件，以便于用户可以快速的进行某些配置项的自定义，而不用修改配置文件。
+并且，这个文件有访问所有 Atom API 的权限。如果你在这个文件里编写了太多的配置，我们还是建议您为这些配置单独新建一个模块。
 
-You can open this file in an editor from the Atom > Open Your Init Script menu.
+也可以通过访问菜单 Atom > Open Your Init Script 打开这个文件。
 
-For example, if you have the Audio Beep configuration setting enabled, you could add the following code to your ~/.atom/init.coffee file to have Atom greet you with an audio beep every time it loads:
+举个例子，如果我们希望在 Atom 加载完毕后「哔」一声提示用户，我们可以在 `~/.atom/init.coffee` 加入这段代码：
 
 ```
 atom.beep()
 ```
-This file can also be named init.js and contain JavaScript code.
+另外，如果你不喜欢编写 CoffeeScript，也可以将这个配置文件命名为 init.js 并编写原生 JavaScript 代码。
 
 #### styles.less
 
-If you want to apply quick-and-dirty personal styling changes without creating an entire theme that you intend to publish, you can add styles to the styles.less file in your ~/.atom directory.
+同样的，如果你想要编写一些简单而粗暴的自定义样式表，而非新建一整个主题，也可以通过编辑配置文件 `~/.atom/styles.less` 来完成。
 
-You can open this file in an editor from the Atom > Open Your Stylesheet menu.
+也可以通过访问菜单 Atom > Open Your Stylesheet 打开这个文件
 
-For example, to change the color of the cursor, you could add the following rule to your ~/.atom/styles.less file:
+举个例子，如果需要改变光标的颜色，你可以在 ~/.atom/styles.less 文件中加入这行代码：
 
 ```
 .editor .cursor {
@@ -107,6 +106,6 @@ For example, to change the color of the cursor, you could add the following rule
 }
 ```
 
-Unfamiliar with LESS? Read more about it here.
+如果你不熟悉 LESS，可以在[这里](#)查阅到更多关于它的信息。
 
-This file can also be named styles.css and contain CSS.
+另外，如果你不喜欢编写 LESS，也可以将这个配置文件命名为 styles.css 并编写 css。
