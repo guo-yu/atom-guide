@@ -51,6 +51,6 @@
 
 ### 基本 Atom 配置
 
-按 `cmd-`，打开设置视图。这是更改设置，安装软件包，并更改主题的地方。 
+按 `cmd-,`打开设置视图。这是更改设置，安装软件包，并更改主题的地方。 
 
 对于更高级的配置请参见[定制指南](https://github.com/turingou/atom-guide/blob/master/guides/customizing-atom.md)。
